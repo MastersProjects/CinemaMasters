@@ -202,8 +202,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Film.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Kinobesucher.cs" />
+    <Compile Include="Models\Kinobuchunssystem.cs" />
+    <Compile Include="Models\Kinosaal.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Platz.cs" />
+    <Compile Include="Models\Reihe.cs" />
+    <Compile Include="Models\Reservierung.cs" />
+    <Compile Include="Models\Vorstellung.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
