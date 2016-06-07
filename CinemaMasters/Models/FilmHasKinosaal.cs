@@ -12,19 +12,13 @@ namespace CinemaMasters.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Reservierung
+    public partial class FilmHasKinosaal
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Reservierung()
-        {
-            this.ReservierungHasPlatz = new HashSet<ReservierungHasPlatz>();
-        }
-    
         public int Id { get; set; }
-        public int ReiheId { get; set; }
+        public int FilmId { get; set; }
+        public int KinosaalId { get; set; }
     
-        public virtual Reihe Reihe { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReservierungHasPlatz> ReservierungHasPlatz { get; set; }
+        public virtual Film Film { get; set; }
+        public virtual Kinosaal Kinosaal { get; set; }
     }
 }

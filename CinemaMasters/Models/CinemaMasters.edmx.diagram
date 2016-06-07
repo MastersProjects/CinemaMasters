@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5dac3a78ecb2489bb4a3d0fc7e1e27d4" Name="Diagram1">
+        <EntityTypeShape EntityType="CinemaMastersModel.Film" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.FilmHasKinosaal" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Kinobesucher" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Kinosaal" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Platz" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Reihe" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Reservierung" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.ReservierungHasPlatz" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Vorstellung" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="CinemaMastersModel.FilmId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.FK_FilmId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.FK_KinosaalId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.KinosaalId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.FK_PlatzId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.ReiheId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.FK_ReiheId" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaMastersModel.FK_ReservierungId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
