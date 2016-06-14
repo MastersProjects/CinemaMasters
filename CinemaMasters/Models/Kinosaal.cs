@@ -24,6 +24,7 @@ namespace CinemaMasters.Models
         public int Id { get; set; }
         public int AnzahlReihe { get; set; }
         public int AnzahlPlaetze { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilmHasKinosaal> FilmHasKinosaal { get; set; }

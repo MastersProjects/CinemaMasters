@@ -1,0 +1,41 @@
+﻿@model CinemaMasters.Models.Kinosaal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Kinosaal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Anzahl Reihen
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnzahlReihe)
+        </dd>
+
+        <dt>
+            Anzahl Plätze
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnzahlPlaetze)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

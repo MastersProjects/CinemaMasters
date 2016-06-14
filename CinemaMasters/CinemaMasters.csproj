@@ -200,7 +200,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KinobesucherController.cs" />
+    <Compile Include="Controllers\KinosaeleController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PlaetzeController.cs" />
+    <Compile Include="Controllers\ReihenController.cs" />
+    <Compile Include="Controllers\ReservierungenController.cs" />
+    <Compile Include="Controllers\ReservierungHasPlaetzeController.cs" />
+    <Compile Include="Controllers\VorstellungenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -335,6 +342,41 @@
     <Content Include="Views\Films\Details.cshtml" />
     <Content Include="Views\Films\Edit.cshtml" />
     <Content Include="Views\Films\Index.cshtml" />
+    <Content Include="Views\Kinosaele\Create.cshtml" />
+    <Content Include="Views\Kinosaele\Delete.cshtml" />
+    <Content Include="Views\Kinosaele\Details.cshtml" />
+    <Content Include="Views\Kinosaele\Edit.cshtml" />
+    <Content Include="Views\Kinosaele\Index.cshtml" />
+    <Content Include="Views\Kinobesucher\Create.cshtml" />
+    <Content Include="Views\Kinobesucher\Delete.cshtml" />
+    <Content Include="Views\Kinobesucher\Details.cshtml" />
+    <Content Include="Views\Kinobesucher\Edit.cshtml" />
+    <Content Include="Views\Kinobesucher\Index.cshtml" />
+    <Content Include="Views\Plaetze\Create.cshtml" />
+    <Content Include="Views\Plaetze\Delete.cshtml" />
+    <Content Include="Views\Plaetze\Details.cshtml" />
+    <Content Include="Views\Plaetze\Edit.cshtml" />
+    <Content Include="Views\Plaetze\Index.cshtml" />
+    <Content Include="Views\Reihen\Create.cshtml" />
+    <Content Include="Views\Reihen\Delete.cshtml" />
+    <Content Include="Views\Reihen\Details.cshtml" />
+    <Content Include="Views\Reihen\Edit.cshtml" />
+    <Content Include="Views\Reihen\Index.cshtml" />
+    <Content Include="Views\Reservierungen\Create.cshtml" />
+    <Content Include="Views\Reservierungen\Delete.cshtml" />
+    <Content Include="Views\Reservierungen\Details.cshtml" />
+    <Content Include="Views\Reservierungen\Edit.cshtml" />
+    <Content Include="Views\Reservierungen\Index.cshtml" />
+    <Content Include="Views\ReservierungHasPlaetze\Create.cshtml" />
+    <Content Include="Views\ReservierungHasPlaetze\Delete.cshtml" />
+    <Content Include="Views\ReservierungHasPlaetze\Details.cshtml" />
+    <Content Include="Views\ReservierungHasPlaetze\Edit.cshtml" />
+    <Content Include="Views\ReservierungHasPlaetze\Index.cshtml" />
+    <Content Include="Views\Vorstellungen\Create.cshtml" />
+    <Content Include="Views\Vorstellungen\Delete.cshtml" />
+    <Content Include="Views\Vorstellungen\Details.cshtml" />
+    <Content Include="Views\Vorstellungen\Edit.cshtml" />
+    <Content Include="Views\Vorstellungen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

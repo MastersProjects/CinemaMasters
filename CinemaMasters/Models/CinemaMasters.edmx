@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Titel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Dauer" Type="int" Nullable="false" />
           <Property Name="Altersfreigabe" Type="int" Nullable="false" />
@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FilmId" Type="int" Nullable="false" />
           <Property Name="KinosaalId" Type="int" Nullable="false" />
         </EntityType>
@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
@@ -36,36 +36,38 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AnzahlReihe" Type="int" Nullable="false" />
           <Property Name="AnzahlPlaetze" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Platz">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReiheId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Reihe">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KinosaalId" Type="int" Nullable="false" />
+          <Property Name="Reihennummer" Type="int" />
         </EntityType>
         <EntityType Name="Reservierung">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReiheId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ReservierungHasPlatz">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReservierungId" Type="int" Nullable="false" />
           <Property Name="PlatzId" Type="int" Nullable="false" />
         </EntityType>
@@ -73,7 +75,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Zeit" Type="date" Nullable="false" />
           <Property Name="FilmId" Type="int" Nullable="false" />
         </EntityType>
@@ -225,7 +227,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Titel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Dauer" Type="Int32" Nullable="false" />
           <Property Name="Altersfreigabe" Type="Int32" Nullable="false" />
@@ -236,7 +238,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FilmId" Type="Int32" Nullable="false" />
           <Property Name="KinosaalId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Film" Relationship="Self.FK_FilmId" FromRole="FilmHasKinosaal" ToRole="Film" />
@@ -246,7 +248,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -256,9 +258,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AnzahlReihe" Type="Int32" Nullable="false" />
           <Property Name="AnzahlPlaetze" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FilmHasKinosaal" Relationship="Self.FK_KinosaalId" FromRole="Kinosaal" ToRole="FilmHasKinosaal" />
           <NavigationProperty Name="Reihe" Relationship="Self.KinosaalId" FromRole="Kinosaal" ToRole="Reihe" />
         </EntityType>
@@ -266,7 +269,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReiheId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ReservierungHasPlatz" Relationship="Self.FK_PlatzId" FromRole="Platz" ToRole="ReservierungHasPlatz" />
           <NavigationProperty Name="Reihe" Relationship="Self.ReiheId" FromRole="Platz" ToRole="Reihe" />
@@ -275,8 +278,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KinosaalId" Type="Int32" Nullable="false" />
+          <Property Name="Reihennummer" Type="Int32" />
           <NavigationProperty Name="Kinosaal" Relationship="Self.KinosaalId" FromRole="Reihe" ToRole="Kinosaal" />
           <NavigationProperty Name="Platz" Relationship="Self.ReiheId" FromRole="Reihe" ToRole="Platz" />
           <NavigationProperty Name="Reservierung" Relationship="Self.FK_ReiheId" FromRole="Reihe" ToRole="Reservierung" />
@@ -285,7 +289,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReiheId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Reihe" Relationship="Self.FK_ReiheId" FromRole="Reservierung" ToRole="Reihe" />
           <NavigationProperty Name="ReservierungHasPlatz" Relationship="Self.FK_ReservierungId" FromRole="Reservierung" ToRole="ReservierungHasPlatz" />
@@ -294,7 +298,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReservierungId" Type="Int32" Nullable="false" />
           <Property Name="PlatzId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Platz" Relationship="Self.FK_PlatzId" FromRole="ReservierungHasPlatz" ToRole="Platz" />
@@ -304,7 +308,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Zeit" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FilmId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Film" Relationship="Self.FilmId" FromRole="Vorstellung" ToRole="Film" />
@@ -490,6 +494,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="AnzahlReihe" ColumnName="AnzahlReihe" />
                 <ScalarProperty Name="AnzahlPlaetze" ColumnName="AnzahlPlaetze" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -506,6 +511,7 @@
               <MappingFragment StoreEntitySet="Reihe">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="KinosaalId" ColumnName="KinosaalId" />
+                <ScalarProperty Name="Reihennummer" ColumnName="Reihennummer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
