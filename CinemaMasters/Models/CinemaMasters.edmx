@@ -76,10 +76,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Zeit" Type="datetime" Nullable="false" />
+          <Property Name="Zeit" Type="date" Nullable="false" />
           <Property Name="FilmId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_FilmId">
+        <Association Name="FilmId">
           <End Role="Film" Type="Self.Film" Multiplicity="1" />
           <End Role="Vorstellung" Type="Self.Vorstellung" Multiplicity="*" />
           <ReferentialConstraint>
@@ -87,6 +87,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Vorstellung">
+              <PropertyRef Name="FilmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmId">
+          <End Role="Film" Type="Self.Film" Multiplicity="1" />
+          <End Role="FilmHasKinosaal" Type="Self.FilmHasKinosaal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FilmHasKinosaal">
               <PropertyRef Name="FilmId" />
             </Dependent>
           </ReferentialConstraint>
@@ -117,12 +129,12 @@
         </Association>
         <Association Name="FK_ReiheId">
           <End Role="Reihe" Type="Self.Reihe" Multiplicity="1" />
-          <End Role="Platz" Type="Self.Platz" Multiplicity="*" />
+          <End Role="Reservierung" Type="Self.Reservierung" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reihe">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Platz">
+            <Dependent Role="Reservierung">
               <PropertyRef Name="ReiheId" />
             </Dependent>
           </ReferentialConstraint>
@@ -139,6 +151,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="KinosaalId">
+          <End Role="Kinosaal" Type="Self.Kinosaal" Multiplicity="1" />
+          <End Role="Reihe" Type="Self.Reihe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kinosaal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reihe">
+              <PropertyRef Name="KinosaalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReiheId">
+          <End Role="Reihe" Type="Self.Reihe" Multiplicity="1" />
+          <End Role="Platz" Type="Self.Platz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reihe">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Platz">
+              <PropertyRef Name="ReiheId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CinemaMastersModelStoreContainer">
           <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilmHasKinosaal" EntityType="Self.FilmHasKinosaal" Schema="dbo" store:Type="Tables" />
@@ -149,9 +185,13 @@
           <EntitySet Name="Reservierung" EntityType="Self.Reservierung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReservierungHasPlatz" EntityType="Self.ReservierungHasPlatz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vorstellung" EntityType="Self.Vorstellung" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_FilmId" Association="Self.FK_FilmId">
+          <AssociationSet Name="FilmId" Association="Self.FilmId">
             <End Role="Film" EntitySet="Film" />
             <End Role="Vorstellung" EntitySet="Vorstellung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmId" Association="Self.FK_FilmId">
+            <End Role="Film" EntitySet="Film" />
+            <End Role="FilmHasKinosaal" EntitySet="FilmHasKinosaal" />
           </AssociationSet>
           <AssociationSet Name="FK_KinosaalId" Association="Self.FK_KinosaalId">
             <End Role="Kinosaal" EntitySet="Kinosaal" />
@@ -163,11 +203,19 @@
           </AssociationSet>
           <AssociationSet Name="FK_ReiheId" Association="Self.FK_ReiheId">
             <End Role="Reihe" EntitySet="Reihe" />
-            <End Role="Platz" EntitySet="Platz" />
+            <End Role="Reservierung" EntitySet="Reservierung" />
           </AssociationSet>
           <AssociationSet Name="FK_ReservierungId" Association="Self.FK_ReservierungId">
             <End Role="Reservierung" EntitySet="Reservierung" />
             <End Role="ReservierungHasPlatz" EntitySet="ReservierungHasPlatz" />
+          </AssociationSet>
+          <AssociationSet Name="KinosaalId" Association="Self.KinosaalId">
+            <End Role="Kinosaal" EntitySet="Kinosaal" />
+            <End Role="Reihe" EntitySet="Reihe" />
+          </AssociationSet>
+          <AssociationSet Name="ReiheId" Association="Self.ReiheId">
+            <End Role="Reihe" EntitySet="Reihe" />
+            <End Role="Platz" EntitySet="Platz" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -260,7 +308,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Zeit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Zeit" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FilmId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Film" Relationship="Self.FilmId" FromRole="Vorstellung" ToRole="Film" />
         </EntityType>
