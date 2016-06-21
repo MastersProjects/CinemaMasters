@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaMasters.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,15 @@ namespace CinemaMasters.Controllers
 {
     public class HomeController : Controller
     {
+        private CinemaMastersEntities db = new CinemaMastersEntities();
+
         public ActionResult Index()
         {
-            return View();
-        }
+            DateTime dateTime = DateTime.Now;
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            var futureVorstellung = db.Vorstellung.Where(x => x.Zeit > dateTime).Take(10).OrderBy(x => x.Zeit).ToList();
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(futureVorstellung);
         }
     }
 }
