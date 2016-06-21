@@ -272,6 +272,7 @@
       <DependentUpon>CinemaMasters.edmx</DependentUpon>
       <LastGenOutput>CinemaMasters.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\CinemaMasters.edmx.sql" />
     <Content Include="Models\CinemaMasters.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CinemaMasters.edmx</DependentUpon>
@@ -412,6 +413,8 @@
           <DevelopmentServerPort>58969</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:58969/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:58969/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

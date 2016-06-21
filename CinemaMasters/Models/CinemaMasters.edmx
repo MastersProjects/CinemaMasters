@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CinemaMastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CinemaMastersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Film">
           <Key>
             <PropertyRef Name="Id" />
@@ -76,10 +76,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Zeit" Type="date" Nullable="false" />
+          <Property Name="Zeit" Type="datetime" Nullable="false" />
           <Property Name="FilmId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FilmId">
+        <Association Name="FK_FilmId">
           <End Role="Film" Type="Self.Film" Multiplicity="1" />
           <End Role="Vorstellung" Type="Self.Vorstellung" Multiplicity="*" />
           <ReferentialConstraint>
@@ -87,18 +87,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Vorstellung">
-              <PropertyRef Name="FilmId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FilmId">
-          <End Role="Film" Type="Self.Film" Multiplicity="1" />
-          <End Role="FilmHasKinosaal" Type="Self.FilmHasKinosaal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Film">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FilmHasKinosaal">
               <PropertyRef Name="FilmId" />
             </Dependent>
           </ReferentialConstraint>
@@ -129,12 +117,12 @@
         </Association>
         <Association Name="FK_ReiheId">
           <End Role="Reihe" Type="Self.Reihe" Multiplicity="1" />
-          <End Role="Reservierung" Type="Self.Reservierung" Multiplicity="*" />
+          <End Role="Platz" Type="Self.Platz" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reihe">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Reservierung">
+            <Dependent Role="Platz">
               <PropertyRef Name="ReiheId" />
             </Dependent>
           </ReferentialConstraint>
@@ -151,30 +139,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="KinosaalId">
-          <End Role="Kinosaal" Type="Self.Kinosaal" Multiplicity="1" />
-          <End Role="Reihe" Type="Self.Reihe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Kinosaal">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Reihe">
-              <PropertyRef Name="KinosaalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ReiheId">
-          <End Role="Reihe" Type="Self.Reihe" Multiplicity="1" />
-          <End Role="Platz" Type="Self.Platz" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Reihe">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Platz">
-              <PropertyRef Name="ReiheId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CinemaMastersModelStoreContainer">
           <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilmHasKinosaal" EntityType="Self.FilmHasKinosaal" Schema="dbo" store:Type="Tables" />
@@ -185,13 +149,9 @@
           <EntitySet Name="Reservierung" EntityType="Self.Reservierung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReservierungHasPlatz" EntityType="Self.ReservierungHasPlatz" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vorstellung" EntityType="Self.Vorstellung" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FilmId" Association="Self.FilmId">
-            <End Role="Film" EntitySet="Film" />
-            <End Role="Vorstellung" EntitySet="Vorstellung" />
-          </AssociationSet>
           <AssociationSet Name="FK_FilmId" Association="Self.FK_FilmId">
             <End Role="Film" EntitySet="Film" />
-            <End Role="FilmHasKinosaal" EntitySet="FilmHasKinosaal" />
+            <End Role="Vorstellung" EntitySet="Vorstellung" />
           </AssociationSet>
           <AssociationSet Name="FK_KinosaalId" Association="Self.FK_KinosaalId">
             <End Role="Kinosaal" EntitySet="Kinosaal" />
@@ -203,23 +163,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_ReiheId" Association="Self.FK_ReiheId">
             <End Role="Reihe" EntitySet="Reihe" />
-            <End Role="Reservierung" EntitySet="Reservierung" />
+            <End Role="Platz" EntitySet="Platz" />
           </AssociationSet>
           <AssociationSet Name="FK_ReservierungId" Association="Self.FK_ReservierungId">
             <End Role="Reservierung" EntitySet="Reservierung" />
             <End Role="ReservierungHasPlatz" EntitySet="ReservierungHasPlatz" />
           </AssociationSet>
-          <AssociationSet Name="KinosaalId" Association="Self.KinosaalId">
-            <End Role="Kinosaal" EntitySet="Kinosaal" />
-            <End Role="Reihe" EntitySet="Reihe" />
-          </AssociationSet>
-          <AssociationSet Name="ReiheId" Association="Self.ReiheId">
-            <End Role="Reihe" EntitySet="Reihe" />
-            <End Role="Platz" EntitySet="Platz" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CinemaMastersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,7 +260,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Zeit" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Zeit" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FilmId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Film" Relationship="Self.FilmId" FromRole="Vorstellung" ToRole="Film" />
         </EntityType>
@@ -456,94 +407,93 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CinemaMastersModelStoreContainer" CdmEntityContainer="CinemaMastersEntities">
-          <EntitySetMapping Name="Film">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Film">
-              <MappingFragment StoreEntitySet="Film">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Titel" ColumnName="Titel" />
-                <ScalarProperty Name="Dauer" ColumnName="Dauer" />
-                <ScalarProperty Name="Altersfreigabe" ColumnName="Altersfreigabe" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FilmHasKinosaal">
-            <EntityTypeMapping TypeName="CinemaMastersModel.FilmHasKinosaal">
-              <MappingFragment StoreEntitySet="FilmHasKinosaal">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FilmId" ColumnName="FilmId" />
-                <ScalarProperty Name="KinosaalId" ColumnName="KinosaalId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Kinobesucher">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Kinobesucher">
-              <MappingFragment StoreEntitySet="Kinobesucher">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Telefonnummer" ColumnName="Telefonnummer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Kinosaal">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Kinosaal">
-              <MappingFragment StoreEntitySet="Kinosaal">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AnzahlReihe" ColumnName="AnzahlReihe" />
-                <ScalarProperty Name="AnzahlPlaetze" ColumnName="AnzahlPlaetze" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Platz">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Platz">
-              <MappingFragment StoreEntitySet="Platz">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ReiheId" ColumnName="ReiheId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reihe">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Reihe">
-              <MappingFragment StoreEntitySet="Reihe">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="KinosaalId" ColumnName="KinosaalId" />
-                <ScalarProperty Name="Reihennummer" ColumnName="Reihennummer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reservierung">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Reservierung">
-              <MappingFragment StoreEntitySet="Reservierung">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ReiheId" ColumnName="ReiheId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReservierungHasPlatz">
-            <EntityTypeMapping TypeName="CinemaMastersModel.ReservierungHasPlatz">
-              <MappingFragment StoreEntitySet="ReservierungHasPlatz">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ReservierungId" ColumnName="ReservierungId" />
-                <ScalarProperty Name="PlatzId" ColumnName="PlatzId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vorstellung">
-            <EntityTypeMapping TypeName="CinemaMastersModel.Vorstellung">
-              <MappingFragment StoreEntitySet="Vorstellung">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Zeit" ColumnName="Zeit" />
-                <ScalarProperty Name="FilmId" ColumnName="FilmId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CinemaMastersModelStoreContainer" CdmEntityContainer="CinemaMastersEntities">
+    <EntitySetMapping Name="Film">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Film)">
+        <MappingFragment StoreEntitySet="Film">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titel" ColumnName="Titel" />
+          <ScalarProperty Name="Dauer" ColumnName="Dauer" />
+          <ScalarProperty Name="Altersfreigabe" ColumnName="Altersfreigabe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FilmHasKinosaal">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.FilmHasKinosaal)">
+        <MappingFragment StoreEntitySet="FilmHasKinosaal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FilmId" ColumnName="FilmId" />
+          <ScalarProperty Name="KinosaalId" ColumnName="KinosaalId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kinobesucher">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Kinobesucher)">
+        <MappingFragment StoreEntitySet="Kinobesucher">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telefonnummer" ColumnName="Telefonnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kinosaal">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Kinosaal)">
+        <MappingFragment StoreEntitySet="Kinosaal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AnzahlReihe" ColumnName="AnzahlReihe" />
+          <ScalarProperty Name="AnzahlPlaetze" ColumnName="AnzahlPlaetze" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Platz">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Platz)">
+        <MappingFragment StoreEntitySet="Platz">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReiheId" ColumnName="ReiheId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reihe">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Reihe)">
+        <MappingFragment StoreEntitySet="Reihe">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KinosaalId" ColumnName="KinosaalId" />
+          <ScalarProperty Name="Reihennummer" ColumnName="Reihennummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservierung">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Reservierung)">
+        <MappingFragment StoreEntitySet="Reservierung">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReiheId" ColumnName="ReiheId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReservierungHasPlatz">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.ReservierungHasPlatz)">
+        <MappingFragment StoreEntitySet="ReservierungHasPlatz">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReservierungId" ColumnName="ReservierungId" />
+          <ScalarProperty Name="PlatzId" ColumnName="PlatzId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vorstellung">
+      <EntityTypeMapping TypeName="IsTypeOf(CinemaMastersModel.Vorstellung)">
+        <MappingFragment StoreEntitySet="Vorstellung">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Zeit" ColumnName="Zeit" />
+          <ScalarProperty Name="FilmId" ColumnName="FilmId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -557,7 +507,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
       </DesignerInfoPropertySet>
     </Options>
