@@ -46,7 +46,7 @@ namespace CinemaMasters.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,AnzahlReihe,AnzahlPlaetze")] Kinosaal kinosaal)
+        public ActionResult Create([Bind(Include = "Id,AnzahlReihe,AnzahlPlaetze,Name")] Kinosaal kinosaal)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace CinemaMasters.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,AnzahlReihe,AnzahlPlaetze")] Kinosaal kinosaal)
+        public ActionResult Edit([Bind(Include = "Id,AnzahlReihe,AnzahlPlaetze,Name")] Kinosaal kinosaal)
         {
             if (ModelState.IsValid)
             {

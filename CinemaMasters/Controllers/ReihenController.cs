@@ -14,14 +14,14 @@ namespace CinemaMasters.Controllers
     {
         private CinemaMastersEntities db = new CinemaMastersEntities();
 
-        // GET: Reihe
+        // GET: Reihen
         public ActionResult Index()
         {
             var reihe = db.Reihe.Include(r => r.Kinosaal);
             return View(reihe.ToList());
         }
 
-        // GET: Reihe/Details/5
+        // GET: Reihen/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,19 +36,19 @@ namespace CinemaMasters.Controllers
             return View(reihe);
         }
 
-        // GET: Reihe/Create
+        // GET: Reihen/Create
         public ActionResult Create()
         {
-            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Id");
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name");
             return View();
         }
 
-        // POST: Reihe/Create
+        // POST: Reihen/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Reihennummer,KinosaalId")] Reihe reihe)
+        public ActionResult Create([Bind(Include = "Id,KinosaalId,Reihennummer")] Reihe reihe)
         {
             if (ModelState.IsValid)
             {
@@ -57,11 +57,11 @@ namespace CinemaMasters.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Id", reihe.KinosaalId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", reihe.KinosaalId);
             return View(reihe);
         }
 
-        // GET: Reihe/Edit/5
+        // GET: Reihen/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -73,16 +73,16 @@ namespace CinemaMasters.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Id", reihe.KinosaalId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", reihe.KinosaalId);
             return View(reihe);
         }
 
-        // POST: Reihe/Edit/5
+        // POST: Reihen/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,KinosaalId")] Reihe reihe)
+        public ActionResult Edit([Bind(Include = "Id,KinosaalId,Reihennummer")] Reihe reihe)
         {
             if (ModelState.IsValid)
             {
@@ -90,11 +90,11 @@ namespace CinemaMasters.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Id", reihe.KinosaalId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", reihe.KinosaalId);
             return View(reihe);
         }
 
-        // GET: Reihe/Delete/5
+        // GET: Reihen/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,7 +109,7 @@ namespace CinemaMasters.Controllers
             return View(reihe);
         }
 
-        // POST: Reihe/Delete/5
+        // POST: Reihen/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -14,10 +14,19 @@ namespace CinemaMasters.Models
     
     public partial class Kinobesucher
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Kinobesucher()
+        {
+            this.Reservierung = new HashSet<Reservierung>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Vorname { get; set; }
         public string Email { get; set; }
         public string Telefonnummer { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservierung> Reservierung { get; set; }
     }
 }

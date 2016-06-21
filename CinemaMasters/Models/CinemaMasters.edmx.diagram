@@ -5,23 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ec78da2db1b948f5ab3e0843421ff81f" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CinemaMastersModel.Film" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.FilmHasKinosaal" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Kinobesucher" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Kinosaal" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Platz" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Reihe" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Reservierung" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.ReservierungHasPlatz" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaMastersModel.Vorstellung" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="CinemaMastersModel.FilmId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.FK_FilmId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.FK_KinosaalId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.KinosaalId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.FK_PlatzId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.ReiheId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.FK_ReiheId" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaMastersModel.FK_ReservierungId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Film" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Kinobesucher" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Kinosaal" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Platz" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Reihe" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Reservierung" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="CinemaMastersModel.ReservierungHasPlatz" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="CinemaMastersModel.Vorstellung" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="CinemaMastersModel.FK_FilmId" />
+        <AssociationConnector Association="CinemaMastersModel.FK_KinobesucherId_Reservierung" />
+        <AssociationConnector Association="CinemaMastersModel.FK_KinosaalId" />
+        <AssociationConnector Association="CinemaMastersModel.FK_KinosaalId_Reihe" />
+        <AssociationConnector Association="CinemaMastersModel.FK_PlatzId" />
+        <AssociationConnector Association="CinemaMastersModel.FK_ReiheId" />
+        <AssociationConnector Association="CinemaMastersModel.FK_ReservierungId" />
+        <AssociationConnector Association="CinemaMastersModel.FK_VorstellungId_Reservierung" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

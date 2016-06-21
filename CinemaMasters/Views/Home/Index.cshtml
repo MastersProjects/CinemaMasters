@@ -5,7 +5,7 @@
 }
 
 <div class="head">
-    <img src="@Url.Content("~/Content/banner.png")" />
+    <img src="@Url.Content("~/Content/banner.png")" class="img-responsive"/>
 </div>
 
 <div class="row">
@@ -37,14 +37,21 @@
                         @Html.DisplayFor(modelItem => item.Zeit)
                     </td>
                     <td>
-                        <a href="@Url.Action("Place", "Home")"><i class="fa fa-arrow-right"></i></a>
+                        <a class="vorstellungBtn" id="@item.Id">@Html.FontAwesome(FontAwesomeIconSet.ArrowRight)</a>
                     </td>
                 </tr>
             }
 
         </table>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 reservation">
 
     </div>
+
+    <script type="text/javascript">
+        $('.vorstellungBtn').click(function (vorstellung) {
+            console.log(vorstellung);
+            alert(vorstellung);
+        });
+    </script>
 </div>

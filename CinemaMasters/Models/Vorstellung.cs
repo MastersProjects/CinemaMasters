@@ -14,10 +14,20 @@ namespace CinemaMasters.Models
     
     public partial class Vorstellung
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vorstellung()
+        {
+            this.Reservierung = new HashSet<Reservierung>();
+        }
+    
         public int Id { get; set; }
         public System.DateTime Zeit { get; set; }
         public int FilmId { get; set; }
+        public int KinosaalId { get; set; }
     
         public virtual Film Film { get; set; }
+        public virtual Kinosaal Kinosaal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservierung> Reservierung { get; set; }
     }
 }

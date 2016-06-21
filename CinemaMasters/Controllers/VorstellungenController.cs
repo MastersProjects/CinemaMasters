@@ -17,7 +17,7 @@ namespace CinemaMasters.Controllers
         // GET: Vorstellungen
         public ActionResult Index()
         {
-            var vorstellung = db.Vorstellung.Include(v => v.Film);
+            var vorstellung = db.Vorstellung.Include(v => v.Film).Include(v => v.Kinosaal);
             return View(vorstellung.ToList());
         }
 
@@ -40,6 +40,7 @@ namespace CinemaMasters.Controllers
         public ActionResult Create()
         {
             ViewBag.FilmId = new SelectList(db.Film, "Id", "Titel");
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace CinemaMasters.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Zeit,FilmId")] Vorstellung vorstellung)
+        public ActionResult Create([Bind(Include = "Id,Zeit,FilmId,KinosaalId")] Vorstellung vorstellung)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace CinemaMasters.Controllers
             }
 
             ViewBag.FilmId = new SelectList(db.Film, "Id", "Titel", vorstellung.FilmId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", vorstellung.KinosaalId);
             return View(vorstellung);
         }
 
@@ -74,6 +76,7 @@ namespace CinemaMasters.Controllers
                 return HttpNotFound();
             }
             ViewBag.FilmId = new SelectList(db.Film, "Id", "Titel", vorstellung.FilmId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", vorstellung.KinosaalId);
             return View(vorstellung);
         }
 
@@ -82,7 +85,7 @@ namespace CinemaMasters.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Zeit,FilmId")] Vorstellung vorstellung)
+        public ActionResult Edit([Bind(Include = "Id,Zeit,FilmId,KinosaalId")] Vorstellung vorstellung)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +94,7 @@ namespace CinemaMasters.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.FilmId = new SelectList(db.Film, "Id", "Titel", vorstellung.FilmId);
+            ViewBag.KinosaalId = new SelectList(db.Kinosaal, "Id", "Name", vorstellung.KinosaalId);
             return View(vorstellung);
         }
 

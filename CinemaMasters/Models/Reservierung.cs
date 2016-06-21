@@ -21,10 +21,12 @@ namespace CinemaMasters.Models
         }
     
         public int Id { get; set; }
-        public int ReiheId { get; set; }
+        public int KinobesucherId { get; set; }
+        public int VorstellungId { get; set; }
     
-        public virtual Reihe Reihe { get; set; }
+        public virtual Kinobesucher Kinobesucher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReservierungHasPlatz> ReservierungHasPlatz { get; set; }
+        public virtual Vorstellung Vorstellung { get; set; }
     }
 }

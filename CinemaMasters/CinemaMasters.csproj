@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mvc.RazorTools, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.RazorTools.Base.1.0.5\lib\net45\Mvc.RazorTools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mvc.RazorTools.FontAwesome, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mvc.RazorTools.FontAwesome.4.3.0.0\lib\net45\Mvc.RazorTools.FontAwesome.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -131,6 +139,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -195,18 +207,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Razor Tools\FontAwesome.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KinobesucherController.cs" />
     <Compile Include="Controllers\KinosaeleController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlaetzeController.cs" />
     <Compile Include="Controllers\ReihenController.cs" />
-    <Compile Include="Controllers\ReservierungenController.cs" />
-    <Compile Include="Controllers\ReservierungHasPlaetzeController.cs" />
     <Compile Include="Controllers\VorstellungenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,9 +238,6 @@
       <DependentUpon>CinemaMasters.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Film.cs">
-      <DependentUpon>CinemaMasters.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FilmHasKinosaal.cs">
       <DependentUpon>CinemaMasters.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -339,6 +346,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Web.config" />
     <Content Include="Views\Films\Create.cshtml" />
     <Content Include="Views\Films\Delete.cshtml" />
     <Content Include="Views\Films\Details.cshtml" />
@@ -349,36 +357,27 @@
     <Content Include="Views\Kinosaele\Details.cshtml" />
     <Content Include="Views\Kinosaele\Edit.cshtml" />
     <Content Include="Views\Kinosaele\Index.cshtml" />
-    <Content Include="Views\Kinobesucher\Create.cshtml" />
-    <Content Include="Views\Kinobesucher\Delete.cshtml" />
-    <Content Include="Views\Kinobesucher\Details.cshtml" />
-    <Content Include="Views\Kinobesucher\Edit.cshtml" />
-    <Content Include="Views\Kinobesucher\Index.cshtml" />
-    <Content Include="Views\Plaetze\Create.cshtml" />
-    <Content Include="Views\Plaetze\Delete.cshtml" />
-    <Content Include="Views\Plaetze\Details.cshtml" />
-    <Content Include="Views\Plaetze\Edit.cshtml" />
-    <Content Include="Views\Plaetze\Index.cshtml" />
     <Content Include="Views\Reihen\Create.cshtml" />
     <Content Include="Views\Reihen\Delete.cshtml" />
     <Content Include="Views\Reihen\Details.cshtml" />
     <Content Include="Views\Reihen\Edit.cshtml" />
     <Content Include="Views\Reihen\Index.cshtml" />
-    <Content Include="Views\Reservierungen\Create.cshtml" />
-    <Content Include="Views\Reservierungen\Delete.cshtml" />
-    <Content Include="Views\Reservierungen\Details.cshtml" />
-    <Content Include="Views\Reservierungen\Edit.cshtml" />
-    <Content Include="Views\Reservierungen\Index.cshtml" />
-    <Content Include="Views\ReservierungHasPlaetze\Create.cshtml" />
-    <Content Include="Views\ReservierungHasPlaetze\Delete.cshtml" />
-    <Content Include="Views\ReservierungHasPlaetze\Details.cshtml" />
-    <Content Include="Views\ReservierungHasPlaetze\Edit.cshtml" />
-    <Content Include="Views\ReservierungHasPlaetze\Index.cshtml" />
+    <Content Include="Views\Plaetze\Create.cshtml" />
+    <Content Include="Views\Plaetze\Delete.cshtml" />
+    <Content Include="Views\Plaetze\Details.cshtml" />
+    <Content Include="Views\Plaetze\Edit.cshtml" />
+    <Content Include="Views\Plaetze\Index.cshtml" />
     <Content Include="Views\Vorstellungen\Create.cshtml" />
     <Content Include="Views\Vorstellungen\Delete.cshtml" />
     <Content Include="Views\Vorstellungen\Details.cshtml" />
     <Content Include="Views\Vorstellungen\Edit.cshtml" />
     <Content Include="Views\Vorstellungen\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

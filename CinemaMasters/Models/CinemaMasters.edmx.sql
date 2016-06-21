@@ -6,72 +6,14 @@
 -- Generated from EDMX file: C:\Users\Perenzin Elia\Source\Repos\CinemaMasters\CinemaMasters\Models\CinemaMasters.edmx
 -- --------------------------------------------------
 
+CREATE DATABASE [CinemaMasters]
+Go
+
 SET QUOTED_IDENTIFIER OFF;
 GO
 USE [CinemaMasters];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
-GO
-
--- --------------------------------------------------
--- Dropping existing FOREIGN KEY constraints
--- --------------------------------------------------
-
-IF OBJECT_ID(N'[dbo].[FK_FilmId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Vorstellung] DROP CONSTRAINT [FK_FilmId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_FilmId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[FilmHasKinosaal] DROP CONSTRAINT [FK_FilmId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_KinosaalId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[FilmHasKinosaal] DROP CONSTRAINT [FK_KinosaalId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PlatzId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ReservierungHasPlatz] DROP CONSTRAINT [FK_PlatzId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ReiheId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Reservierung] DROP CONSTRAINT [FK_ReiheId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ReservierungId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ReservierungHasPlatz] DROP CONSTRAINT [FK_ReservierungId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_KinosaalId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Reihe] DROP CONSTRAINT [FK_KinosaalId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ReiheId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Platz] DROP CONSTRAINT [FK_ReiheId];
-GO
-
--- --------------------------------------------------
--- Dropping existing tables
--- --------------------------------------------------
-
-IF OBJECT_ID(N'[dbo].[Film]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Film];
-GO
-IF OBJECT_ID(N'[dbo].[FilmHasKinosaal]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[FilmHasKinosaal];
-GO
-IF OBJECT_ID(N'[dbo].[Kinobesucher]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Kinobesucher];
-GO
-IF OBJECT_ID(N'[dbo].[Kinosaal]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Kinosaal];
-GO
-IF OBJECT_ID(N'[dbo].[Platz]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Platz];
-GO
-IF OBJECT_ID(N'[dbo].[Reihe]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Reihe];
-GO
-IF OBJECT_ID(N'[dbo].[Reservierung]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Reservierung];
-GO
-IF OBJECT_ID(N'[dbo].[ReservierungHasPlatz]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ReservierungHasPlatz];
-GO
-IF OBJECT_ID(N'[dbo].[Vorstellung]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Vorstellung];
 GO
 
 -- --------------------------------------------------
@@ -84,14 +26,6 @@ CREATE TABLE [dbo].[Film] (
     [Titel] nvarchar(50)  NOT NULL,
     [Dauer] int  NOT NULL,
     [Altersfreigabe] int  NOT NULL
-);
-GO
-
--- Creating table 'FilmHasKinosaal'
-CREATE TABLE [dbo].[FilmHasKinosaal] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [FilmId] int  NOT NULL,
-    [KinosaalId] int  NOT NULL
 );
 GO
 
@@ -117,6 +51,7 @@ GO
 -- Creating table 'Platz'
 CREATE TABLE [dbo].[Platz] (
     [Id] int IDENTITY(1,1) NOT NULL,
+	[Platznummer] INT NOT NULL,
     [ReiheId] int  NOT NULL
 );
 GO
@@ -124,15 +59,16 @@ GO
 -- Creating table 'Reihe'
 CREATE TABLE [dbo].[Reihe] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [KinosaalId] int  NOT NULL,
-    [Reihennummer] int  NULL
+	[Reihennummer] int  NULL,
+    [KinosaalId] int  NOT NULL
 );
 GO
 
 -- Creating table 'Reservierung'
 CREATE TABLE [dbo].[Reservierung] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [ReiheId] int  NOT NULL
+    [KinobesucherId] int  NOT NULL,
+	[VorstellungId] int  NOT NULL
 );
 GO
 
@@ -148,7 +84,8 @@ GO
 CREATE TABLE [dbo].[Vorstellung] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Zeit] datetime  NOT NULL,
-    [FilmId] int  NOT NULL
+    [FilmId] int  NOT NULL,
+	[KinosaalId] int NOT NULL
 );
 GO
 
@@ -159,12 +96,6 @@ GO
 -- Creating primary key on [Id] in table 'Film'
 ALTER TABLE [dbo].[Film]
 ADD CONSTRAINT [PK_Film]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'FilmHasKinosaal'
-ALTER TABLE [dbo].[FilmHasKinosaal]
-ADD CONSTRAINT [PK_FilmHasKinosaal]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -223,55 +154,22 @@ ADD CONSTRAINT [FK_FilmId]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_FilmId'
-CREATE INDEX [IX_FK_FilmId]
-ON [dbo].[Vorstellung]
-    ([FilmId]);
-GO
-
--- Creating foreign key on [FilmId] in table 'FilmHasKinosaal'
-ALTER TABLE [dbo].[FilmHasKinosaal]
-ADD CONSTRAINT [FK_FilmId]
-    FOREIGN KEY ([FilmId])
-    REFERENCES [dbo].[Film]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_FilmId'
-CREATE INDEX [IX_FK_FilmId]
-ON [dbo].[FilmHasKinosaal]
-    ([FilmId]);
-GO
-
--- Creating foreign key on [KinosaalId] in table 'FilmHasKinosaal'
-ALTER TABLE [dbo].[FilmHasKinosaal]
-ADD CONSTRAINT [FK_KinosaalId]
+-- Creating foreign key on [KinosaalId] in table 'Vorstellung'
+ALTER TABLE [dbo].[Vorstellung]
+ADD CONSTRAINT FK_KinosaalId
     FOREIGN KEY ([KinosaalId])
     REFERENCES [dbo].[Kinosaal]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_KinosaalId'
-CREATE INDEX [IX_FK_KinosaalId]
-ON [dbo].[FilmHasKinosaal]
-    ([KinosaalId]);
 GO
 
 -- Creating foreign key on [KinosaalId] in table 'Reihe'
 ALTER TABLE [dbo].[Reihe]
-ADD CONSTRAINT [FK_KinosaalId]
+ADD CONSTRAINT [FK_KinosaalId_Reihe]
     FOREIGN KEY ([KinosaalId])
     REFERENCES [dbo].[Kinosaal]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_KinosaalId'
-CREATE INDEX [IX_FK_KinosaalId]
-ON [dbo].[Reihe]
-    ([KinosaalId]);
 GO
 
 -- Creating foreign key on [PlatzId] in table 'ReservierungHasPlatz'
@@ -283,10 +181,13 @@ ADD CONSTRAINT [FK_PlatzId]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_PlatzId'
-CREATE INDEX [IX_FK_PlatzId]
-ON [dbo].[ReservierungHasPlatz]
-    ([PlatzId]);
+-- Creating foreign key on [ReservierungId] in table 'ReservierungHasPlatz'
+ALTER TABLE [dbo].[ReservierungHasPlatz]
+ADD CONSTRAINT [FK_ReservierungId]
+    FOREIGN KEY ([ReservierungId])
+    REFERENCES [dbo].[Reservierung]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [ReiheId] in table 'Platz'
@@ -298,40 +199,22 @@ ADD CONSTRAINT [FK_ReiheId]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ReiheId'
-CREATE INDEX [IX_FK_ReiheId]
-ON [dbo].[Platz]
-    ([ReiheId]);
-GO
-
--- Creating foreign key on [ReiheId] in table 'Reservierung'
+-- Creating foreign key on [KinobesucherId] in table 'Reservierung'
 ALTER TABLE [dbo].[Reservierung]
-ADD CONSTRAINT [FK_ReiheId]
-    FOREIGN KEY ([ReiheId])
-    REFERENCES [dbo].[Reihe]
+ADD CONSTRAINT [FK_KinobesucherId_Reservierung]
+    FOREIGN KEY ([KinobesucherId])
+    REFERENCES [dbo].[Kinobesucher]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ReiheId'
-CREATE INDEX [IX_FK_ReiheId]
-ON [dbo].[Reservierung]
-    ([ReiheId]);
-GO
-
--- Creating foreign key on [ReservierungId] in table 'ReservierungHasPlatz'
-ALTER TABLE [dbo].[ReservierungHasPlatz]
-ADD CONSTRAINT [FK_ReservierungId]
-    FOREIGN KEY ([ReservierungId])
-    REFERENCES [dbo].[Reservierung]
+-- Creating foreign key on [VorstellungId] in table 'Reservierung'
+ALTER TABLE [dbo].[Reservierung]
+ADD CONSTRAINT [FK_VorstellungId_Reservierung]
+    FOREIGN KEY ([VorstellungId])
+    REFERENCES [dbo].[Vorstellung]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ReservierungId'
-CREATE INDEX [IX_FK_ReservierungId]
-ON [dbo].[ReservierungHasPlatz]
-    ([ReservierungId]);
 GO
 
 -- --------------------------------------------------

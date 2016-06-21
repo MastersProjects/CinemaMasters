@@ -17,7 +17,7 @@ namespace CinemaMasters.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Kinosaal()
         {
-            this.FilmHasKinosaal = new HashSet<FilmHasKinosaal>();
+            this.Vorstellung = new HashSet<Vorstellung>();
             this.Reihe = new HashSet<Reihe>();
         }
     
@@ -27,7 +27,7 @@ namespace CinemaMasters.Models
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FilmHasKinosaal> FilmHasKinosaal { get; set; }
+        public virtual ICollection<Vorstellung> Vorstellung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reihe> Reihe { get; set; }
     }
