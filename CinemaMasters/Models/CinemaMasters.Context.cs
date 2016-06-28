@@ -26,7 +26,6 @@ namespace CinemaMasters.Models
         }
     
         public virtual DbSet<Film> Film { get; set; }
-        public virtual DbSet<FilmHasKinosaal> FilmHasKinosaal { get; set; }
         public virtual DbSet<Kinobesucher> Kinobesucher { get; set; }
         public virtual DbSet<Kinosaal> Kinosaal { get; set; }
         public virtual DbSet<Platz> Platz { get; set; }

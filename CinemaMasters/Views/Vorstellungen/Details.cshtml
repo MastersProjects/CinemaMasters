@@ -19,11 +19,19 @@
         </dd>
 
         <dt>
-            Filmtitel
+            @Html.DisplayNameFor(model => model.Film.Titel)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Film.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kinosaal.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kinosaal.Name)
         </dd>
 
     </dl>

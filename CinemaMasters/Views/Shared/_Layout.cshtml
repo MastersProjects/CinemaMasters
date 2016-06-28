@@ -11,6 +11,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Mvc.RazorTools.BundleManager.Styles.Render()
 
 </head>
 <body>
@@ -34,8 +35,6 @@
                             <li><a href="#">@Html.ActionLink("Vorstellungen", "Index", "Vorstellungen")</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">@Html.ActionLink("Kinosäle", "Index", "Kinosaele")</a></li>
-                            <li><a href="#">@Html.ActionLink("Reihen", "Index", "Reihen")</a></li>
-                            <li><a href="#">@Html.ActionLink("Plätze", "Index", "Plaetze")</a></li>
                         </ul>
                     </li>
                         

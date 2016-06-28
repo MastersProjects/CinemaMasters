@@ -21,6 +21,7 @@ namespace CinemaMasters.Models
         }
     
         public int Id { get; set; }
+        public int Platznummer { get; set; }
         public int ReiheId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

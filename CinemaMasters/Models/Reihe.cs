@@ -18,17 +18,14 @@ namespace CinemaMasters.Models
         public Reihe()
         {
             this.Platz = new HashSet<Platz>();
-            this.Reservierung = new HashSet<Reservierung>();
         }
     
         public int Id { get; set; }
-        public int KinosaalId { get; set; }
         public Nullable<int> Reihennummer { get; set; }
+        public int KinosaalId { get; set; }
     
         public virtual Kinosaal Kinosaal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Platz> Platz { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservierung> Reservierung { get; set; }
     }
 }

@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            Zeit
+            @Html.DisplayNameFor(model => model.Zeit)
         </th>
         <th>
-            Filmtitel
+            @Html.DisplayNameFor(model => model.Film.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kinosaal.Name)
         </th>
         <th></th>
     </tr>
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Film.Titel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kinosaal.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

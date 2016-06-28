@@ -11,14 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            Anzahl Reihen
+            @Html.DisplayNameFor(model => model.AnzahlReihe)
         </dt>
 
         <dd>
@@ -26,11 +19,19 @@
         </dd>
 
         <dt>
-            Anzahl Plätze
+            @Html.DisplayNameFor(model => model.AnzahlPlaetze)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AnzahlPlaetze)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
     </dl>
