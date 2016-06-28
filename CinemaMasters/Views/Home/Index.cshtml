@@ -9,16 +9,19 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <table class="table">
             <tr>
-                <th>
+                <th class="col-md-4">
                     @Html.DisplayNameFor(model => model.Film)
                 </th>
-                <th>
+                <th class="col-md-3">
+                    Kinosaal
+                </th>
+                <th class="col-md-1">
                     @Html.DisplayNameFor(model => model.Film.Altersfreigabe)
                 </th>
-                <th>
+                <th class="col-md-4">
                     @Html.DisplayNameFor(model => model.Zeit)
                 </th>
                 <th>
@@ -31,27 +34,20 @@
                         @Html.DisplayFor(modelItem => item.Film.Titel)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Kinosaal.Name)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Film.Altersfreigabe)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Zeit)
                     </td>
-                    <td>
-                        <a class="vorstellungBtn" id="@item.Id">@Html.FontAwesome(FontAwesomeIconSet.ArrowRight)</a>
+                    <td class="text-right">
+                        <a href="@Url.Action("Create", "Reservations", new { id=item.Id })">@Html.FontAwesome(FontAwesomeIconSet.ArrowRight)</a>
                     </td>
                 </tr>
             }
 
         </table>
     </div>
-    <div class="col-md-6 reservation">
-
-    </div>
-
-    <script type="text/javascript">
-        $('.vorstellungBtn').click(function (vorstellung) {
-            console.log(vorstellung);
-            alert(vorstellung);
-        });
-    </script>
 </div>

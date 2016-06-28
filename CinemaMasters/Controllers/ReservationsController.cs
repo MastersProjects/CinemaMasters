@@ -10,129 +10,120 @@ using CinemaMasters.Models;
 
 namespace CinemaMasters.Controllers
 {
-    public class KinosaeleController : Controller
+    public class ReservationsController : Controller
     {
         private CinemaMastersEntities db = new CinemaMastersEntities();
 
-        // GET: Kinosaele
+        // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Kinosaal.ToList());
+            var reservierung = db.Reservierung.Include(r => r.Kinobesucher).Include(r => r.Vorstellung);
+            return View(reservierung.ToList());
         }
 
-        // GET: Kinosaele/Details/5
+        // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kinosaal kinosaal = db.Kinosaal.Find(id);
-            if (kinosaal == null)
+            Reservierung reservierung = db.Reservierung.Find(id);
+            if (reservierung == null)
             {
                 return HttpNotFound();
             }
-            return View(kinosaal);
+            return View(reservierung);
         }
 
-        // GET: Kinosaele/Create
-        public ActionResult Create()
+        // GET: Reservations/Create
+        public ActionResult Create(int? Id)
         {
+            if(Id != null)
+            {
+                ViewBag.SelectedVorstellung = db.Vorstellung.Find(Id);
+            }
+            ViewBag.KinobesucherId = new SelectList(db.Kinobesucher, "Id", "Name");
+            ViewBag.VorstellungId = new SelectList(db.Vorstellung, "Id", "Id");
             return View();
         }
 
-        // POST: Kinosaele/Create
+        // POST: Reservations/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AnzahlReihe,AnzahlPlaetze,Name")] Kinosaal kinosaal)
+        public ActionResult Create([Bind(Include = "Id,KinobesucherId,VorstellungId")] Reservierung reservierung)
         {
             if (ModelState.IsValid)
             {
-                var kinosaalId = db.Kinosaal.Add(kinosaal);
+                db.Reservierung.Add(reservierung);
                 db.SaveChanges();
-
-                for (var reihe = 1; reihe <= kinosaal.AnzahlReihe; reihe++)
-                {
-                    var reiheNew = new Reihe
-                    {
-                        KinosaalId = kinosaalId.Id,
-                        Reihennummer = reihe
-                    };
-                    var reiheId = db.Reihe.Add(reiheNew);
-                    db.SaveChanges();
-                    for (var platz = 1; platz <= kinosaal.AnzahlPlaetze; platz++)
-                    {
-                        var platzNew = new Platz
-                        {
-                            Platznummer = platz,
-                            ReiheId = reiheId.Id
-                        };
-                        db.Platz.Add(platzNew);
-                        db.SaveChanges();
-                    }
-                }
-                
                 return RedirectToAction("Index");
             }
 
-            return View(kinosaal);
+            ViewBag.KinobesucherId = new SelectList(db.Kinobesucher, "Id", "Name", reservierung.KinobesucherId);
+            ViewBag.VorstellungId = new SelectList(db.Vorstellung, "Id", "Id", reservierung.VorstellungId);
+            return View(reservierung);
         }
 
-        // GET: Kinosaele/Edit/5
+        // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kinosaal kinosaal = db.Kinosaal.Find(id);
-            if (kinosaal == null)
+            Reservierung reservierung = db.Reservierung.Find(id);
+            if (reservierung == null)
             {
                 return HttpNotFound();
             }
-            return View(kinosaal);
+            ViewBag.KinobesucherId = new SelectList(db.Kinobesucher, "Id", "Name", reservierung.KinobesucherId);
+            ViewBag.VorstellungId = new SelectList(db.Vorstellung, "Id", "Id", reservierung.VorstellungId);
+            return View(reservierung);
         }
 
-        // POST: Kinosaele/Edit/5
+        // POST: Reservations/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AnzahlReihe,AnzahlPlaetze,Name")] Kinosaal kinosaal)
+        public ActionResult Edit([Bind(Include = "Id,KinobesucherId,VorstellungId")] Reservierung reservierung)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(kinosaal).State = EntityState.Modified;
+                db.Entry(reservierung).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(kinosaal);
+            ViewBag.KinobesucherId = new SelectList(db.Kinobesucher, "Id", "Name", reservierung.KinobesucherId);
+            ViewBag.VorstellungId = new SelectList(db.Vorstellung, "Id", "Id", reservierung.VorstellungId);
+            return View(reservierung);
         }
 
-        // GET: Kinosaele/Delete/5
+        // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kinosaal kinosaal = db.Kinosaal.Find(id);
-            if (kinosaal == null)
+            Reservierung reservierung = db.Reservierung.Find(id);
+            if (reservierung == null)
             {
                 return HttpNotFound();
             }
-            return View(kinosaal);
+            return View(reservierung);
         }
 
-        // POST: Kinosaele/Delete/5
+        // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Kinosaal kinosaal = db.Kinosaal.Find(id);
-            db.Kinosaal.Remove(kinosaal);
+            Reservierung reservierung = db.Reservierung.Find(id);
+            db.Reservierung.Remove(reservierung);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
