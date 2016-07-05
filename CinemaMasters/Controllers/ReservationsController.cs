@@ -41,8 +41,36 @@ namespace CinemaMasters.Controllers
         {
             if(Id != null)
             {
-                ViewBag.SelectedVorstellung = db.Vorstellung.Find(Id);
+                var vorstellung = db.Vorstellung.Find(Id);
+                ViewBag.SelectedVorstellung = vorstellung;
+                IList<Reihe> reihen = db.Reihe.Where(kinosaal => kinosaal.KinosaalId == vorstellung.KinosaalId).ToList();
+                IList<Platz> plaetze;
+                IList<Platz> allePlaetze = new List<Platz>();
+                foreach(var reihe in reihen)
+                {
+                    plaetze = db.Platz.Where(r => r.ReiheId == reihe.Id).ToList();
+                    foreach(var platz in plaetze)
+                    {
+                        allePlaetze.Add(platz);
+                    }
+                }
+                ViewBag.AnzahlPlatzeInReihe = vorstellung.Kinosaal.AnzahlPlaetze;
+                ViewBag.AllePlaetze = allePlaetze;
+
+                IList<Reservierung> reservationen = db.Reservierung.Where(resVorstellung => resVorstellung.VorstellungId == Id).ToList();
+
+                IList<int> reservierungHasPlatzList = new List<int>();
+
+                foreach (var reservation in reservationen)
+                {
+                    
+                    var result = db.ReservierungHasPlatz.First(selectReservation => selectReservation.ReservierungId == reservation.Id).PlatzId;
+                    reservierungHasPlatzList.Add(result);
+                }
+                ViewBag.ReservierungHasPlatz = reservierungHasPlatzList;
+
             }
+
             ViewBag.KinobesucherId = new SelectList(db.Kinobesucher, "Id", "Name");
             ViewBag.VorstellungId = new SelectList(db.Vorstellung, "Id", "Id");
             return View();
@@ -55,6 +83,7 @@ namespace CinemaMasters.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,KinobesucherId,VorstellungId")] Reservierung reservierung)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Reservierung.Add(reservierung);

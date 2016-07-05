@@ -14,93 +14,134 @@
     <div class="form-horizontal">
         <h4>Kinobesucher</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Kinobesucher.Vorname, "Vorname", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Kinobesucher.Vorname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Kinobesucher.Vorname, "", new { @class = "text-danger" })
+        <div class="col-md-7">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kinobesucher.Vorname, "Vorname", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Kinobesucher.Vorname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kinobesucher.Vorname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kinobesucher.Name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Kinobesucher.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kinobesucher.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kinobesucher.Telefonnummer, "Telefonnummer*", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Kinobesucher.Telefonnummer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kinobesucher.Telefonnummer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kinobesucher.Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Kinobesucher.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kinobesucher.Email, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Kinobesucher.Name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Kinobesucher.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Kinobesucher.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Kinobesucher.Telefonnummer, "Telefonnummer*", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Kinobesucher.Telefonnummer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Kinobesucher.Telefonnummer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Kinobesucher.Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Kinobesucher.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Kinobesucher.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <h4>Reservierung</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-
-            <div class="col-md-10">
-                @if (ViewBag.SelectedVorstellung == null)
+        <div class="col-md-5 text-center" style="border-top: 3px solid black; padding-top:10px;">
+            <p>Leinwand</p>
+            @{ int reihe = 1;
+                int offset = 1;
+                foreach (var platz in ViewBag.AllePlaetze)
                 {
-                    @Html.LabelFor(model => model.VorstellungId, "VorstellungId", htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.DropDownList("VorstellungId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.VorstellungId, "", new { @class = "text-danger" })
-                }
-                else
-                {
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Film</strong>
-                        </div>
-                        <div class="col-md-6">
-                            @ViewBag.SelectedVorstellung.Film.Titel
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Kinosaal</strong>
-                        </div>
-                        <div class="col-md-6">
-                            @ViewBag.SelectedVorstellung.Kinosaal.Name
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Altersfreigabe</strong>
-                        </div>
-                        <div class="col-md-6">
-                            @ViewBag.SelectedVorstellung.Film.Altersfreigabe
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <strong>Zeit</strong>
-                        </div>
-                        <div class="col-md-6">
-                            @ViewBag.SelectedVorstellung.Zeit
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+                    if (reihe <= ViewBag.AnzahlPlatzeInReihe)
+                    {
+                        if (ViewBag.ReservierungHasPlatz.Contains(platz.Id))
+                        {
+                        <i class="fa fa-square fa-3x" aria-hidden="true"></i>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        }
+                        else
+                        {
+                            <i class="fa fa-square-o fa-3x" aria-hidden="true"></i>
+                        }
+
+                        reihe++;
+                    }
+                    else
+                    {
+                        <br />
+                        if (ViewBag.ReservierungHasPlatz.Contains(platz.Id))
+                        {
+                            <i class="fa fa-square fa-3x" aria-hidden="true"></i>
+
+                        }
+                        else
+                        {
+                            <i class="fa fa-square-o fa-3x" aria-hidden="true"></i>
+                        }
+                        reihe = offset + 1;
+                    }
+                }
+            }
+        </div>
+        <div class="col-md-6">
+            <h4>Reservierung</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @if (ViewBag.SelectedVorstellung == null)
+                    {
+                        @Html.LabelFor(model => model.VorstellungId, "VorstellungId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownList("VorstellungId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.VorstellungId, "", new { @class = "text-danger" })
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Film</strong>
+                            </div>
+                            <div class="col-md-6">
+                                @ViewBag.SelectedVorstellung.Film.Titel
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Kinosaal</strong>
+                            </div>
+                            <div class="col-md-6">
+                                @ViewBag.SelectedVorstellung.Kinosaal.Name
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Altersfreigabe</strong>
+                            </div>
+                            <div class="col-md-6">
+                                @ViewBag.SelectedVorstellung.Film.Altersfreigabe
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Zeit</strong>
+                            </div>
+                            <div class="col-md-6">
+                                @ViewBag.SelectedVorstellung.Zeit
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-}
 
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+            }
+<div class="col-md-12 clearfix"></div>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

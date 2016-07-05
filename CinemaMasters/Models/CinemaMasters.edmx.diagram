@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="CinemaMastersModel.Platz" Width="1.5" PointX="5.25" PointY="6.875" />
         <EntityTypeShape EntityType="CinemaMastersModel.Reihe" Width="1.5" PointX="3" PointY="6.875" />
         <EntityTypeShape EntityType="CinemaMastersModel.Reservierung" Width="1.5" PointX="5.25" PointY="3.625" />
-        <EntityTypeShape EntityType="CinemaMastersModel.ReservierungHasPlatz" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="CinemaMastersModel.ReservierungHasPlatz" Width="1.5" PointX="7.75" PointY="5.125" />
         <EntityTypeShape EntityType="CinemaMastersModel.Vorstellung" Width="1.5" PointX="3" PointY="3.5" />
         <AssociationConnector Association="CinemaMastersModel.FK_FilmId" />
         <AssociationConnector Association="CinemaMastersModel.FK_KinobesucherId_Reservierung" />
