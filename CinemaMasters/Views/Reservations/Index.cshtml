@@ -15,7 +15,13 @@
             @Html.DisplayNameFor(model => model.Kinobesucher.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vorstellung.Id)
+            Kinosaal
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorstellung.Zeit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorstellung.Film)
         </th>
         <th></th>
     </tr>
@@ -26,7 +32,13 @@
             @Html.DisplayFor(modelItem => item.Kinobesucher.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Vorstellung.Id)
+            @Html.DisplayFor(modelItem => item.Vorstellung.Kinosaal.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vorstellung.Zeit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vorstellung.Film.Titel)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

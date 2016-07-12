@@ -39,17 +39,17 @@ namespace CinemaMasters.Controllers
         // GET: Reservations/Create
         public ActionResult Create(int? Id)
         {
-            if(Id != null)
+            if (Id != null)
             {
                 var vorstellung = db.Vorstellung.Find(Id);
                 ViewBag.SelectedVorstellung = vorstellung;
                 IList<Reihe> reihen = db.Reihe.Where(kinosaal => kinosaal.KinosaalId == vorstellung.KinosaalId).ToList();
                 IList<Platz> plaetze;
                 IList<Platz> allePlaetze = new List<Platz>();
-                foreach(var reihe in reihen)
+                foreach (var reihe in reihen)
                 {
                     plaetze = db.Platz.Where(r => r.ReiheId == reihe.Id).ToList();
-                    foreach(var platz in plaetze)
+                    foreach (var platz in plaetze)
                     {
                         allePlaetze.Add(platz);
                     }
@@ -63,7 +63,7 @@ namespace CinemaMasters.Controllers
 
                 foreach (var reservation in reservationen)
                 {
-                    
+
                     var result = db.ReservierungHasPlatz.First(selectReservation => selectReservation.ReservierungId == reservation.Id).PlatzId;
                     reservierungHasPlatzList.Add(result);
                 }
@@ -81,13 +81,48 @@ namespace CinemaMasters.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,KinobesucherId,VorstellungId")] Reservierung reservierung)
+        public ActionResult Create([Bind(Include = "Id,KinobesucherId,VorstellungId")] Reservierung reservierung, int eventListResult, string platzResult, string telefonnummer, string name, string nachname, string email)
         {
-            
+            var kinobesucher = new Kinobesucher
+            {
+                Name = nachname,
+                Vorname = name,
+                Email = email,
+                Telefonnummer = telefonnummer
+            };
+            var result = db.Kinobesucher.Where(t => t.Telefonnummer == kinobesucher.Telefonnummer);
+            if (result.Count() < 1)
+            {
+                kinobesucher = db.Kinobesucher.Add(kinobesucher);
+                db.SaveChanges();
+            }
+
+            reservierung.Kinobesucher = kinobesucher;
+            reservierung.Vorstellung = db.Vorstellung.Find(reservierung.Id);
+
+            var reservierungDb = db.Reservierung.Add(reservierung);
+
+            Char delimiter = ',';
+            String[] plaetze = platzResult.Split(delimiter);
+            foreach (var platz in plaetze)
+            {
+                if (platz != "")
+                {
+                    var platzDb = db.Platz.Find(Int32.Parse(platz));
+                    var reservierungHasPlatz = new ReservierungHasPlatz
+                    {
+                        Platz = platzDb,
+                        Reservierung = reservierungDb
+                    };
+                    db.ReservierungHasPlatz.Add(reservierungHasPlatz);
+                    reservierungHasPlatz = null;
+                }
+            }
+            db.SaveChanges();
+
+
             if (ModelState.IsValid)
             {
-                db.Reservierung.Add(reservierung);
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

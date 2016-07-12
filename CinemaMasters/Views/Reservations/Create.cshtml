@@ -19,28 +19,32 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Kinobesucher.Vorname, "Vorname", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Kinobesucher.Vorname, new { htmlAttributes = new { @class = "form-control" } })
+                    <input class="form-control" type="text" name="name" />
+                    @*@Html.EditorFor(model => model.Kinobesucher.Vorname, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.Kinobesucher.Vorname, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Kinobesucher.Name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Kinobesucher.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    <input class="form-control" type="text" name="nachname" />
+                    @*@Html.EditorFor(model => model.Kinobesucher.Name, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.Kinobesucher.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Kinobesucher.Telefonnummer, "Telefonnummer*", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Kinobesucher.Telefonnummer, new { htmlAttributes = new { @class = "form-control" } })
+                    <input class="form-control" type="number" name="telefonnummer" />
+                    @*@Html.EditorFor(model => model.Kinobesucher.Telefonnummer, new { htmlAttributes = new { @class = "form-control", @name="test" } })*@
                     @Html.ValidationMessageFor(model => model.Kinobesucher.Telefonnummer, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Kinobesucher.Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Kinobesucher.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    <input class="form-control" type="email" name="email" />
+                    @*@Html.EditorFor(model => model.Kinobesucher.Email, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.Kinobesucher.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -55,12 +59,12 @@
                     {
                         if (ViewBag.ReservierungHasPlatz.Contains(platz.Id))
                         {
-                        <i class="fa fa-square fa-3x" aria-hidden="true"></i>
+                            <i class="fa fa-square fa-3x platz" id="@platz.Id" aria-hidden="true"></i>
 
                         }
                         else
                         {
-                            <i class="fa fa-square-o fa-3x" aria-hidden="true"></i>
+                            <i class="fa fa-square-o fa-3x platz" id="@platz.Id" aria-hidden="true"></i>
                         }
 
                         reihe++;
@@ -70,12 +74,12 @@
                         <br />
                         if (ViewBag.ReservierungHasPlatz.Contains(platz.Id))
                         {
-                            <i class="fa fa-square fa-3x" aria-hidden="true"></i>
+                            <i class="fa fa-square fa-3x platz" id="@platz.Id" aria-hidden="true"></i>
 
                         }
                         else
                         {
-                            <i class="fa fa-square-o fa-3x" aria-hidden="true"></i>
+                            <i class="fa fa-square-o fa-3x platz" id="@platz.Id" aria-hidden="true"></i>
                         }
                         reihe = offset + 1;
                     }
@@ -97,6 +101,7 @@
                     }
                     else
                     {
+                        <input id = "eventListResult" name = "eventListResult" type = "text" style = "display:none;" value="@ViewBag.SelectedVorstellung.Id"/>
                         <div class="row">
                             <div class="col-md-6">
                                 <strong>Film</strong>
@@ -137,11 +142,11 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
+            <input id="platzResult" name="platzResult" type="text" style="display: none;" />
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
-            }
-<div class="col-md-12 clearfix"></div>
+                }
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
@@ -149,3 +154,24 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    $(".platz").click(function (e) {
+        var color = $(e.currentTarget).css('color');
+        if (color == 'rgb(51, 51, 51)') {
+            $(e.currentTarget).css("color", "blue");
+            var old = $("#platzResult").val();
+            $("#platzResult").val(old + $(e.currentTarget).attr("id") + ",")
+            $(e.currentTarget).val(1);
+        } else if($(e.currentTarget).hasClass("fa-square")){
+            alert("Platz schon belegt");
+        } else {
+            $(e.currentTarget).css("color", "rgb(51, 51, 51)");
+            var old = $("#platzResult").val();
+            old = old.replace($(e.currentTarget).attr("id") + ",", "");
+            $("#platzResult").val(old)
+        }
+    });
+
+</script>
+
